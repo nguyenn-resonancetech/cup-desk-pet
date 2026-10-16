@@ -17,7 +17,7 @@
   "build": {
     "appId": "com.nowa.cupdeskpet",
     "productName": "Cup Desk Pet",
-    "artifactName": "Cup-Desk-Pet-${version}-${os}-${arch}.${ext}",
+    "artifactName": "Cup-Desk-Pet-${os}-${arch}.${ext}",
     "files": [
       "src/**",
       "assets/**",
@@ -41,10 +41,10 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "shortcutName": "Cúp",
-      "artifactName": "Cup-Desk-Pet-Setup-${version}-win-${arch}.${ext}"
+      "artifactName": "Cup-Desk-Pet-Setup-win-${arch}.${ext}"
     },
     "portable": {
-      "artifactName": "Cup-Desk-Pet-Portable-${version}-win-${arch}.${ext}"
+      "artifactName": "Cup-Desk-Pet-Portable-win-${arch}.${ext}"
     },
     "mac": {
       "target": [
@@ -58,7 +58,7 @@
       }
     },
     "dmg": {
-      "artifactName": "Cup-Desk-Pet-${version}-mac-${arch}.${ext}"
+      "artifactName": "Cup-Desk-Pet-mac-${arch}.${ext}"
     },
     "afterPack": "build/afterPack.cjs"
   },

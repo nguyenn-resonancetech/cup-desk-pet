@@ -52,7 +52,7 @@ jobs:
           files: out/*
           body: |
             **Tải Cúp về máy:**
-            - **Windows:** `Cup-Desk-Pet-Setup-…-win-x64.exe` (bản cài) hoặc `Cup-Desk-Pet-Portable-…-win-x64.exe` (chạy luôn, không cần cài). Windows SmartScreen báo "unrecognized app" → bấm *More info → Run anyway*.
-            - **macOS chip Apple (M1/M2/M3/M4):** `Cup-Desk-Pet-…-mac-arm64.dmg`
-            - **macOS chip Intel:** `Cup-Desk-Pet-…-mac-x64.dmg`
+            - **Windows:** `Cup-Desk-Pet-Setup-win-x64.exe` (bản cài) hoặc `Cup-Desk-Pet-Portable-win-x64.exe` (chạy luôn, không cần cài). Windows SmartScreen báo "unrecognized app" → bấm *More info → Run anyway*.
+            - **macOS chip Apple (M1/M2/M3/M4):** `Cup-Desk-Pet-mac-arm64.dmg`
+            - **macOS chip Intel:** `Cup-Desk-Pet-mac-x64.dmg`
               Lần đầu mở: kéo Cúp vào Applications → chuột phải vào app → *Open* → *Open*. (App chưa ký Apple Developer nên macOS hỏi một lần.)

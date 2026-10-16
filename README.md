@@ -1,30 +1,33 @@
-# Cúp — Nowa desk pet (bản "xúi trốn việc")
+# Cúp — con gà phi công xúi bạn trốn việc
 
-## Tải về
+<p align="center"><img src="art/cup@4x.png" width="200" alt="Cúp"></p>
 
-Vào trang **[Releases](../../releases/latest)** và tải đúng file cho máy:
+Thú cưng pixel sống ở góc màn hình (Windows / macOS): xúi trốn việc bằng đạo lý tầm xàm, tự mở nhạc
+Thái Hoàng quẩy kèm đèn sàn, rủ uống nước, rủ đi ăn, nhắc khéo trước giờ họp, hóng drama, và rất nhiều trò lầy.
 
-| Máy | File |
+## ⬇️ Tải về
+
+| Máy | Link tải |
 |---|---|
-| Windows (cài đặt) | `Cup-Desk-Pet-Setup-<version>-win-x64.exe` |
-| Windows (chạy luôn, không cài) | `Cup-Desk-Pet-Portable-<version>-win-x64.exe` |
-| Mac chip Apple (M1–M4) | `Cup-Desk-Pet-<version>-mac-arm64.dmg` |
-| Mac chip Intel | `Cup-Desk-Pet-<version>-mac-x64.dmg` |
+| **Windows** — bản cài | **[Cup-Desk-Pet-Setup-win-x64.exe](https://github.com/nguyenn-resonancetech/cup-desk-pet/releases/latest/download/Cup-Desk-Pet-Setup-win-x64.exe)** |
+| **Windows** — chạy luôn, không cần cài | [Cup-Desk-Pet-Portable-win-x64.exe](https://github.com/nguyenn-resonancetech/cup-desk-pet/releases/latest/download/Cup-Desk-Pet-Portable-win-x64.exe) |
+| **Mac chip Apple** (M1 / M2 / M3 / M4) | **[Cup-Desk-Pet-mac-arm64.dmg](https://github.com/nguyenn-resonancetech/cup-desk-pet/releases/latest/download/Cup-Desk-Pet-mac-arm64.dmg)** |
+| **Mac chip Intel** | [Cup-Desk-Pet-mac-x64.dmg](https://github.com/nguyenn-resonancetech/cup-desk-pet/releases/latest/download/Cup-Desk-Pet-mac-x64.dmg) |
 
-- **Windows:** SmartScreen báo "Windows protected your PC" → *More info* → *Run anyway* (app chưa mua chứng chỉ ký).
-- **macOS:** mở DMG, kéo Cúp vào Applications. Lần đầu: chuột phải vào app → *Open* → *Open*.
-  Cúp không có icon ở Dock, chỉ có icon trên thanh menu.
+Link luôn trỏ tới bản mới nhất. Các bản cũ: [Releases](https://github.com/nguyenn-resonancetech/cup-desk-pet/releases).
 
-Dữ liệu (cài đặt, đếm ly nước…) nằm ở `%APPDATA%\Cup Desk Pet` (Windows) / `~/Library/Application Support/Cup Desk Pet` (Mac);
+**Lần đầu mở**
+- **Windows:** nếu hiện "Windows protected your PC" → bấm *More info* → *Run anyway* (app chưa mua chứng chỉ ký).
+- **macOS:** mở file DMG, kéo Cúp vào **Applications**. Lần đầu: chuột phải vào app → *Open* → *Open*.
+  Cúp không có icon ở Dock, chỉ có icon nhỏ trên thanh menu.
+- Muốn Cúp nhắc giờ họp: chuột phải Cúp → **Cài đặt** → mục **Lịch Google của bạn**, làm theo 4 bước.
+
+Dữ liệu (cài đặt, số ly nước…) nằm ở `%APPDATA%\Cup Desk Pet` (Windows) / `~/Library/Application Support/Cup Desk Pet` (Mac);
 bản portable để cạnh file exe. Muốn để chỗ khác thì đặt biến môi trường `CUP_DATA`.
 
-### Phát hành bản mới
+## Cúp làm gì
 
-Sửa `version` trong `package.json`, commit, rồi đẩy tag: `git tag v0.3.1 && git push --tags`.
-GitHub Actions tự build Windows + macOS và đính file vào Release.
-
-
-Con gà phi công mặt ngu ngu sống ở góc màn hình Windows. Thay vì nhắc task, Cúp:
+Thay vì nhắc task như desk pet bình thường, Cúp:
 
 - **Xúi trốn việc** bằng những câu nghe rất có lý mà chẳng có lý gì
   ("1 giờ anh kiếm được bao nhiêu tiền? 300k đây anh cầm lấy, và chơi với em đi").
@@ -74,6 +77,10 @@ Con gà phi công mặt ngu ngu sống ở góc màn hình Windows. Thay vì nh�
 - Kích thước mặc định **Mini 120px** (60% bản cũ).
 
 ## Chạy từ source
+
+Phát hành bản mới: sửa `version` trong `package.json`, commit, rồi đẩy tag (`git tag v0.3.1 && git push origin v0.3.1`).
+GitHub Actions tự build Windows + macOS và đính file vào Release.
+
 
 ```bash
 npm install
