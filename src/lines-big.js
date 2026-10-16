@@ -208,7 +208,13 @@ export const CHATTER = [
 
 // Câu hỏi có nút trả lời — để giao tiếp hai chiều.
 export const ASKS = [
-  { t: 'Câu hỏi nghiêm túc: {a} thích trà sữa hay cà phê?', a: ['Trà sữa', 'Cà phê'], r: ['Chuẩn gu em! Đi mua đi {a}.', 'Cà phê cũng được, nhớ mua trà sữa cho em.'] },
+  { t: 'Trưa nay ăn gì {a}? Cơm tấm hay bún bò?', a: ['Cơm tấm', 'Bún bò'], r: ['Cơm tấm sườn bì chả! Em tìm quán ngon gần {a} rồi nè.', 'Bún bò cay xè! Quán ngon gần đây em mở cho {a} rồi.'], maps: ['cơm tấm ngon', 'bún bò ngon'] },
+  { t: 'Ăn vặt không {a}? Bánh tráng trộn hay xiên que?', a: ['Bánh tráng trộn', 'Xiên que'], r: ['Biết ngay mà! Em mở mấy chỗ bánh tráng trộn ngon rồi đó.', 'Xiên que chấm tương ớt! Em tìm quán gần {a} rồi nè.'], maps: ['bánh tráng trộn ngon', 'xiên que ngon'] },
+  { t: 'Tối nay đi đâu {a}? Lẩu hay nướng?', a: ['Lẩu', 'Nướng'], r: ['Lẩu thì phải đông người, rủ cả em nha. Quán lẩu ngon em mở rồi.', 'Nướng! Em tìm quán nướng ngon gần {a} rồi, nhớ đừng nướng gà.'], maps: ['quán lẩu ngon', 'quán nướng ngon'] },
+  { t: 'Giờ này uống gì cho tỉnh {a}? Trà chanh hay sinh tố?', a: ['Trà chanh', 'Sinh tố'], r: ['Trà chanh chém gió! Em mở mấy quán gần đây rồi đó.', 'Sinh tố cho healthy! Quán ngon gần {a} đây nè.'], maps: ['trà chanh ngon', 'sinh tố ngon'] },
+  { t: 'Sáng mai ăn gì {a}? Bánh mì hay phở?', a: ['Bánh mì', 'Phở'], r: ['Bánh mì giòn rụm! Em tìm tiệm bánh mì ngon gần {a} rồi.', 'Phở nóng hổi! Quán phở ngon gần đây em mở rồi nè.'], maps: ['bánh mì ngon', 'phở ngon'] },
+  { t: 'Thèm ngọt không {a}? Chè hay kem?', a: ['Chè', 'Kem'], r: ['Chè thập cẩm nhiều topping! Em mở quán chè ngon gần {a} rồi.', 'Kem mát lạnh! Tiệm kem ngon gần đây em tìm rồi đó.'], maps: ['quán chè ngon', 'tiệm kem ngon'] },
+  { t: 'Câu hỏi nghiêm túc: {a} thích trà sữa hay cà phê?', a: ['Trà sữa', 'Cà phê'], r: ['Chuẩn gu em! Em mở mấy quán trà sữa ngon gần {a} rồi đó, đi mua đi.', 'Cà phê cũng được. Em tìm quán cà phê ngon gần đây cho {a} rồi, nhớ mua trà sữa cho em.'], maps: ['trà sữa ngon', 'quán cà phê ngon'] },
   { t: '{A} chấm hôm nay mấy điểm?', a: ['10 điểm', '5 điểm'], r: ['10 điểm vì có em đúng không?', 'Còn 5 điểm kia là chơi với em sẽ đủ.'] },
   { t: 'Nếu được nghỉ một tuần, {a} đi đâu?', a: ['Đi biển', 'Ở nhà ngủ'], r: ['Biển! Cho em theo với, em mang kính phi công rồi.', 'Ngủ là chân ái. Em ngủ chung.'] },
   { t: 'Em hỏi thật: {a} có mệt không?', a: ['Mệt', 'Không'], r: ['Vậy nghỉ đi {a}. Em nói nghiêm túc đó.', 'Nói dối. Em thấy {a} thở dài ba lần rồi.'] },

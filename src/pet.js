@@ -56,6 +56,8 @@ function P(arr) {
 }
 const pickT = (_key, arr) => P(arr);
 const SLACKS = [...L.SLACK, ...L.SLACK_MORE];
+// Google Maps "<món> gần đây" — Maps ranks nearby places, "ngon" leans it toward well-rated ones
+const openMaps = (q) => api.openUrl('https://www.google.com/maps/search/' + encodeURIComponent(q.replace(/\s*gần đây$/, '') + ' gần đây'));
 const POKES = [...L.POKE, ...L.POKE_MORE];
 const DL_IDX = [...L.DL_OPEN.keys()];
 function daolyText() {
@@ -279,7 +281,7 @@ function foodLine(pool) {
   expr('tongue', 6000);
   say(fillT(line.t), { icon: line.icon, actions: [
     { label: 'Đi ăn!', fn: () => {
-      api.openUrl('https://www.google.com/maps/search/' + encodeURIComponent(line.dish + ' gần đây'));
+      openMaps(/ngon|quán/.test(line.dish) ? line.dish : line.dish + ' ngon');
       jump(); say(fillT(P(L.FOOD_YES)));
     } },
     { label: 'Đang bận', fn: () => { setMode('sulk'); expr('side', 4000); say(fillT(P(L.FOOD_NO))); } },
@@ -564,7 +566,7 @@ function chatLine(fromPoke) {
   else if (r < 0.62 && !fromPoke) {
     const q = P(L.ASKS);
     expr('smug', 6000);
-    say(fillT(q.t), { actions: q.a.map((label, i) => ({ label, fn: () => { jump(); expr('blush', 3000); say(fillT(q.r[i])); } })) });
+    say(fillT(q.t), { icon: q.maps ? (/trà|cà phê|sinh tố|chanh/.test(q.maps.join()) ? 'milktea' : 'noodles') : undefined, actions: q.a.map((label, i) => ({ label, fn: () => { if (q.maps) openMaps(q.maps[i]); jump(); expr('blush', 3000); say(fillT(q.r[i])); } })) });
   } else if (r < 0.9) { expr('smug', 8000); say(daolyText()); }
   else if (st.drama.length && !fromPoke) dramaLine();
   else say(fillT(P(L.LONELY)));
@@ -697,6 +699,7 @@ function onCmd(c) {
     back: () => comeBack(),
     edgeL: () => moveWin(clampX(-1e6), groundY()), edgeR: () => moveWin(clampX(1e6), groundY()),
     skit: () => runSkit(P(L.SKITS)), chat: () => chatLine(),
+    askfood: () => { const q = L.ASKS.find((x) => x.maps && /trà sữa/.test(x.t)); say(fillT(q.t), { icon: 'milktea', actions: q.a.map((label, i) => ({ label, fn: () => { openMaps(q.maps[i]); say(fillT(q.r[i])); } })) }); },
   };
   if (c.startsWith('skit:')) { const sk = L.SKITS.find((x) => x.id === c.slice(5)); if (sk) runSkit(sk); return; }
   A[c] && A[c]();
