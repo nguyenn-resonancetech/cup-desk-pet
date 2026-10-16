@@ -1,0 +1,88 @@
+/* Cúp — pet window. Nowa DS: stepped corners, hard offset shadows, one coral per view,
+   Noto Sans body, Onest labels, Tiny5 only for the pet-world eyebrow + meter. */
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; user-select: none; }
+body { font-family: var(--font-noto-sans); color: var(--color-deep-ink); }
+#stage { position: absolute; left: 0; top: 0; image-rendering: pixelated; }
+
+/* ------------------------------------------------ speech bubble (.pxcard, 2px ink frame) */
+.bubble {
+  --pxbg: var(--surface-pure-white);
+  --pxborder: var(--color-deep-ink);
+  --step12: polygon(0 12px,6px 12px,6px 6px,12px 6px,12px 0,calc(100% - 12px) 0,calc(100% - 12px) 6px,calc(100% - 6px) 6px,calc(100% - 6px) 12px,100% 12px,100% calc(100% - 12px),calc(100% - 6px) calc(100% - 12px),calc(100% - 6px) calc(100% - 6px),calc(100% - 12px) calc(100% - 6px),calc(100% - 12px) 100%,12px 100%,12px calc(100% - 6px),6px calc(100% - 6px),6px calc(100% - 12px),0 calc(100% - 12px));
+  position: absolute; width: 316px; box-sizing: border-box;
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 16px 16px 16px 16px;
+  filter: drop-shadow(4px 4px 0 rgba(22, 28, 36, .28));
+  opacity: 0; transform: translateY(12px);
+  transition: opacity var(--duration-base) var(--ease-expo), transform var(--duration-base) var(--ease-expo);
+}
+.bubble::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(var(--pxbg), var(--pxbg)) 2px 2px / calc(100% - 4px) calc(100% - 4px) no-repeat, var(--pxborder);
+  clip-path: var(--step12);
+}
+.bubble > * { position: relative; z-index: 1; }
+.bubble.show { opacity: 1; transform: translateY(0); }
+.bubble.hide { opacity: 0; transform: translateY(8px); transition-duration: 220ms; }
+
+/* stepped tail pointing down at Cúp */
+.b-tail {
+  position: absolute !important; bottom: -14px; left: var(--tail, 50%); width: 20px; height: 16px; margin-left: -10px;
+  background: var(--color-deep-ink);
+  clip-path: polygon(0 0, 100% 0, 100% 4px, 80% 4px, 80% 8px, 60% 8px, 60% 12px, 40% 12px, 40% 16px, 20% 16px, 20% 4px, 0 4px);
+}
+.b-tail::after {
+  content: ""; position: absolute; left: 4px; top: -2px; width: 12px; height: 12px; background: var(--pxbg);
+  clip-path: polygon(0 0, 100% 0, 100% 4px, 66% 4px, 66% 8px, 33% 8px, 33% 12px, 0 12px);
+}
+
+.b-ico { image-rendering: pixelated; flex: none; width: auto; height: auto; margin: -4px 0 0 -4px; }
+.b-body { flex: 1; min-width: 0; }
+.b-name {
+  font-family: var(--font-pixel-vi); font-size: 16px; line-height: 16px; letter-spacing: .04em;
+  color: var(--color-mist-body); margin-bottom: 4px;
+}
+.b-text { margin: 0; font-family: var(--font-pixel-vi); font-size: 22px; line-height: 24px; font-weight: 400; overflow-wrap: anywhere; }
+.b-text.big { font-family: var(--font-onest); font-weight: 800; font-size: 20px; line-height: 28px; }
+
+.b-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.b-actions:empty { display: none; }
+
+/* primary pixel button — the single coral in the bubble */
+.btn {
+  --side: 4px; --btn-top: var(--color-coral-flame); --btn-side: var(--color-ember-deep);
+  --step8: polygon(0 8px,4px 8px,4px 4px,8px 4px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 4px,calc(100% - 4px) 4px,calc(100% - 4px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 4px) calc(100% - 8px),calc(100% - 4px) calc(100% - 4px),calc(100% - 8px) calc(100% - 4px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 4px),4px calc(100% - 4px),4px calc(100% - 8px),0 calc(100% - 8px));
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(var(--btn-top), var(--btn-top)) no-repeat 0 0 / 100% calc(100% - var(--side)), var(--btn-side);
+  color: #fff; font-family: var(--font-onest); font-weight: 700; font-size: 14px; line-height: 20px;
+  padding: 8px 16px 12px; border: 0; cursor: pointer; clip-path: var(--step8);
+  transition: transform var(--duration-press) steps(2);
+}
+.btn:active { --side: 2px; transform: translateY(2px); }
+.btn:hover { --side: 6px; transform: translateY(-2px); }
+.btn-ghost {
+  background: none; border: 0; cursor: pointer; padding: 8px 4px;
+  font-family: var(--font-onest); font-weight: 700; font-size: 14px; line-height: 20px; color: var(--color-slate-mid);
+  border-bottom: 2px solid transparent; transition: border-color 200ms var(--ease-out-strong), color 150ms;
+}
+.btn-ghost:hover { border-bottom-color: var(--color-coral-flame); color: var(--color-deep-ink); }
+
+/* 8-bit care meter (DS §10) */
+.meter { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.meter .mlabel { font-family: var(--font-pixel-vi); font-size: 16px; line-height: 16px; letter-spacing: .06em; color: var(--color-slate-mid); }
+.meter .cells { display: flex; gap: 2px; }
+.meter .mc { width: 12px; height: 12px; background: var(--color-chalk-surface); }
+.meter .mc.full { background: var(--color-coral-flame); animation: mcfill 300ms steps(2) both; }
+@keyframes mcfill { from { transform: scaleY(.2); } to { transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble, .bubble.hide { transition: opacity 150ms linear; transform: none; }
+}
+
+/* under the bird while it hangs from the cursor — no tail */
+.bubble.below .b-tail { display: none; }
+/* Cúp ngâm thơ */
+.b-text.poem { font-size: 24px; line-height: 28px; color: var(--color-ember-darker); }
+/* labels with Vietnamese marks Tiny5 can't draw fall back to Onest small caps */
+

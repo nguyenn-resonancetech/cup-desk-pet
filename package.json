@@ -1,0 +1,67 @@
+{
+  "name": "cup-desk-pet",
+  "productName": "Cup Desk Pet",
+  "version": "0.3.0",
+  "description": "Cúp — con gà phi công trên desktop, chuyên xúi trốn việc, mở nhạc Thái Hoàng, rủ đi ăn và hóng drama.",
+  "main": "src/main.cjs",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis portable --x64",
+    "dist:mac": "electron-builder --mac dmg --x64 --arm64"
+  },
+  "devDependencies": {
+    "electron": "31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.nowa.cupdeskpet",
+    "productName": "Cup Desk Pet",
+    "artifactName": "Cup-Desk-Pet-${version}-${os}-${arch}.${ext}",
+    "files": [
+      "src/**",
+      "assets/**",
+      "package.json",
+      "!assets/**/*-1024.png"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "assets/app-icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "Cúp",
+      "artifactName": "Cup-Desk-Pet-Setup-${version}-win-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "Cup-Desk-Pet-Portable-${version}-win-${arch}.${ext}"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "assets/app-icon-1024.png",
+      "category": "public.app-category.entertainment",
+      "identity": null,
+      "extendInfo": {
+        "LSUIElement": true
+      }
+    },
+    "dmg": {
+      "artifactName": "Cup-Desk-Pet-${version}-mac-${arch}.${ext}"
+    },
+    "afterPack": "build/afterPack.cjs"
+  },
+  "author": "Nguyễn",
+  "repository": "https://github.com/nguyenn-resonancetech/cup-desk-pet"
+}

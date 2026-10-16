@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'">
+<title>Cúp overlay</title>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  [hidden] { display: none !important; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: transparent; user-select: none; }
+  canvas { position: absolute; inset: 0; image-rendering: pixelated; }
+  #lights { width: 100%; height: 100%; }
+  #face-ui { position: absolute; inset: 0; pointer-events: none; }
+  .say {
+    position: absolute; left: 50%; top: 4%; transform: translateX(-50%);
+    font-family: var(--font-onest); font-weight: 800; font-size: 48px; line-height: 56px; color: #fff;
+    text-shadow: 4px 4px 0 var(--color-deep-ink), -2px -2px 0 var(--color-deep-ink), 2px -2px 0 var(--color-deep-ink), -2px 2px 0 var(--color-deep-ink);
+    white-space: nowrap; letter-spacing: -0.01em;
+  }
+  .eyebrow { font-family: var(--font-pixel-vi); font-size: 24px; letter-spacing: .08em; color: var(--color-amber-signal); text-align: center; margin-bottom: 8px; text-shadow: 2px 2px 0 var(--color-deep-ink); }
+  .acts { position: absolute; left: 50%; bottom: 6%; transform: translateX(-50%); display: flex; gap: 24px; align-items: center; pointer-events: auto; }
+  .btn {
+    --side: 8px; --btn-top: var(--color-coral-flame); --btn-side: var(--color-ember-deep);
+    --step8: polygon(0 8px,4px 8px,4px 4px,8px 4px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 4px,calc(100% - 4px) 4px,calc(100% - 4px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 4px) calc(100% - 8px),calc(100% - 4px) calc(100% - 4px),calc(100% - 8px) calc(100% - 4px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 4px),4px calc(100% - 4px),4px calc(100% - 8px),0 calc(100% - 8px));
+    background: linear-gradient(var(--btn-top), var(--btn-top)) no-repeat 0 0 / 100% calc(100% - var(--side)), var(--btn-side);
+    color: #fff; font: 800 24px/32px var(--font-onest); padding: 16px 40px 24px; border: 0; cursor: pointer; clip-path: var(--step8);
+    transition: transform 70ms steps(2); filter: drop-shadow(4px 4px 0 rgba(22,28,36,.4));
+  }
+  .btn:hover { --side: 11px; transform: translateY(-3px); }
+  .btn:active { --side: 3px; transform: translateY(5px); }
+  .ghost {
+    position: relative; background: var(--color-pure-white); color: var(--color-deep-ink); border: 0; cursor: pointer;
+    font: 700 20px/28px var(--font-onest); padding: 12px 24px;
+    clip-path: polygon(0 8px,4px 8px,4px 4px,8px 4px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 4px,calc(100% - 4px) 4px,calc(100% - 4px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 4px) calc(100% - 8px),calc(100% - 4px) calc(100% - 4px),calc(100% - 8px) calc(100% - 4px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 4px),4px calc(100% - 4px),4px calc(100% - 8px),0 calc(100% - 8px));
+    transition: transform 160ms var(--ease-out-strong);
+  }
+</style>
+</head>
+<body>
+  <canvas id="lights"></canvas>
+  <canvas id="stage"></canvas>
+  <div id="face-ui" hidden>
+    <div class="say"><div class="eyebrow">CÚP · CẬN MẶT</div><span id="faceText"></span></div>
+    <div class="acts">
+      <button class="btn" id="praise"><span>Khen đẹp</span></button>
+      <button class="ghost" id="diss"><span>Chê</span></button>
+    </div>
+  </div>
+  <script type="module" src="overlay.js"></script>
+</body>
+</html>

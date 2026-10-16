@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.userdata/
+_*/
+_*.png
+music/*
+!music/README.txt
+run-debug.cmd

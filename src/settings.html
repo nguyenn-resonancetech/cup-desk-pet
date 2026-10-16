@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'">
+<title>Cúp — Cài đặt</title>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  :root { --step12: polygon(0 12px,6px 12px,6px 6px,12px 6px,12px 0,calc(100% - 12px) 0,calc(100% - 12px) 6px,calc(100% - 6px) 6px,calc(100% - 6px) 12px,100% 12px,100% calc(100% - 12px),calc(100% - 6px) calc(100% - 12px),calc(100% - 6px) calc(100% - 6px),calc(100% - 12px) calc(100% - 6px),calc(100% - 12px) 100%,12px 100%,12px calc(100% - 6px),6px calc(100% - 6px),6px calc(100% - 12px),0 calc(100% - 12px));
+          --step8: polygon(0 8px,4px 8px,4px 4px,8px 4px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 4px,calc(100% - 4px) 4px,calc(100% - 4px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 4px) calc(100% - 8px),calc(100% - 4px) calc(100% - 4px),calc(100% - 8px) calc(100% - 4px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 4px),4px calc(100% - 4px),4px calc(100% - 8px),0 calc(100% - 8px)); }
+  [hidden] { display: none !important; }
+  html { background: var(--color-warm-parchment); }
+  body { margin: 0; padding: 24px 16px 32px; font-family: var(--font-noto-sans); color: var(--color-deep-ink);
+         background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+         background-size: var(--grid-cell) var(--grid-cell); }
+  header { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; }
+  header img { width: 80px; height: 80px; image-rendering: pixelated; }
+  .eyebrow { font-family: var(--font-pixel-vi); font-size: 16px; line-height: 16px; letter-spacing: .04em; color: var(--color-mist-body); }
+  h1 { font-family: var(--font-onest); font-weight: 800; font-size: 24px; line-height: 32px; margin: 4px 0 0; }
+  .sub { margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--color-slate-mid); }
+  .pxcard { position: relative; padding: 16px; margin-bottom: 16px; filter: drop-shadow(var(--px-shadow)); --pxbg: #fff; --pxborder: var(--color-chalk-surface); }
+  .pxcard::before { content: ""; position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(var(--pxbg), var(--pxbg)) 1px 1px / calc(100% - 2px) calc(100% - 2px) no-repeat, var(--pxborder); clip-path: var(--step12); }
+  .pxcard > * { position: relative; z-index: 1; }
+  h2 { font-family: var(--font-onest); font-weight: 700; font-size: 16px; line-height: 24px; margin: 0 0 8px; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0; }
+  .row + .row { border-top: 1px solid var(--color-ghost-white); }
+  .grow { flex: 1; }
+  .grow input { width: 100%; }
+  .row label, .lbl { font-size: 16px; line-height: 24px; }
+  .hint { font-size: 12px; line-height: 16px; color: var(--color-mist-body); margin-top: 2px; }
+  select, input[type=text] { box-sizing: border-box; font: 16px/24px var(--font-noto-sans); padding: 8px 12px; border: 1px solid var(--color-cloud-border);
+    border-radius: var(--radius-inputs); background: #fff; color: var(--color-deep-ink); min-width: 140px; }
+  select:focus, input:focus { outline: none; border: 2px solid var(--color-coral-flame); padding: 7px 11px; }
+  /* native switch, coral when on */
+  .sw { position: relative; width: 48px; height: 28px; flex: none; }
+  .sw input { opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; position: absolute; z-index: 2; }
+  .sw i { position: absolute; inset: 0; border-radius: 999px; background: var(--color-chalk-surface); transition: background 150ms; }
+  .sw i::after { content: ""; position: absolute; left: 4px; top: 4px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(22,28,36,.2); transition: transform 150ms var(--ease-out-strong); }
+  .sw input:checked + i { background: var(--color-coral-flame); }
+  .sw input:checked + i::after { transform: translateX(20px); }
+  input[type=range] { accent-color: var(--color-coral-flame); width: 140px; }
+  .seg { display: inline-flex; gap: 4px; }
+  .seg button { font: 700 14px/20px var(--font-onest); padding: 8px 12px; border: 0; cursor: pointer; background: var(--color-ghost-white); color: var(--color-slate-mid); clip-path: var(--step8); }
+  .seg button.on { background: var(--color-deep-ink); color: #fff; }
+  .link { background: none; border: 0; padding: 0; font: 600 14px/20px var(--font-noto-sans); color: var(--color-deep-ink); text-decoration: underline; text-decoration-color: var(--color-coral-flame); cursor: pointer; }
+  .saved { font-family: var(--font-pixel-vi); font-size: 16px; color: var(--color-success-ink); opacity: 0; transition: opacity 150ms; }
+  .saved.on { opacity: 1; }
+  .steps { margin: 0 0 8px; padding-left: 20px; font-size: 14px; line-height: 20px; color: var(--color-slate-mid); }
+  .steps li { margin-bottom: 4px; }
+  .steps b { color: var(--color-deep-ink); }
+  .flash-sec { animation: hl 1.4s steps(4) 1; }
+  @keyframes hl { 0%, 50% { --pxborder: var(--color-coral-flame); } 100% { --pxborder: var(--color-chalk-surface); } }
+  footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+</style>
+</head>
+<body>
+  <header>
+    <img src="../assets/app-icon.png" alt="">
+    <div>
+      <div class="eyebrow">CÚP · NOWA DESK PET</div>
+      <h1>Cài đặt cho Cúp</h1>
+      <p class="sub">Phi công chuyên nghiệp, chuyên xúi trốn việc.</p>
+    </div>
+  </header>
+
+  <section class="pxcard">
+    <h2>Cúp gọi bạn là gì</h2>
+    <div class="row"><label for="pronoun">Xưng hô</label>
+      <select id="pronoun"><option>anh</option><option>chị</option><option>sếp</option><option>bạn</option><option>đại ca</option><option value="__custom">Tên riêng…</option></select>
+    </div>
+    <div class="row" id="customRow" hidden><label for="custom">Tên của bạn</label><input id="custom" type="text" maxlength="16" placeholder="vd. Nguyễn"></div>
+  </section>
+
+  <section class="pxcard">
+    <h2>Độ lầy</h2>
+    <div class="row"><div><div class="lbl">Tần suất xúi trốn việc</div><div class="hint">Vừa: xúi mỗi 6–12 phút, trò xàm mỗi 4–8 phút. Ít = gấp đôi thời gian, Lầy = chưa tới một nửa.</div></div>
+      <div class="seg" id="frequency"><button data-v="it">Ít</button><button data-v="vua">Vừa</button><button data-v="lay">Lầy</button></div>
+    </div>
+    <div class="row"><label for="water">Nhắc uống nước</label><span class="sw"><input id="water" type="checkbox"><i></i></span></div>
+    <div class="row"><label for="food">Rủ đi ăn (trưa, xế, tối)</label><span class="sw"><input id="food" type="checkbox"><i></i></span></div>
+  </section>
+
+  <section class="pxcard">
+    <h2>Nhạc quẩy</h2>
+    <div class="row"><div><label for="vinahouse">Tự bật nhạc quẩy</label><div class="hint">Khoảng 1 lần mỗi giờ, mỗi lần ~1,5 phút.</div></div><span class="sw"><input id="vinahouse" type="checkbox"><i></i></span></div>
+    <div class="row"><div><label for="musicSource">Nguồn nhạc</label><div class="hint" id="musicHint"></div></div>
+      <select id="musicSource">
+        <option value="default">Set Thái Hoàng (mặc định)</option>
+        <option value="link">Link của tôi</option>
+        <option value="folder">File trên máy</option>
+        <option value="synth">Cúp tự chơi (synth)</option>
+      </select>
+    </div>
+    <div class="row" id="linkRow"><div class="grow"><input id="musicLink" type="text" placeholder="https://www.youtube.com/watch?v=…"><div class="hint">YouTube, SoundCloud… Không phải Thái Hoàng là Cúp chê đó.</div></div></div>
+    <div class="row" id="folderRow"><span class="lbl">Thả file mp3 vào thư mục nhạc</span><button class="link" id="openMusic">Mở thư mục nhạc</button></div>
+    <div class="row"><label for="volume">Âm lượng</label><input id="volume" type="range" min="0.1" max="1" step="0.05"></div>
+    <div class="row"><div><label for="flash">Đèn flash khi quẩy</label><div class="hint">Tắt nếu bạn nhạy cảm với ánh sáng nhấp nháy.</div></div><span class="sw"><input id="flash" type="checkbox"><i></i></span></div>
+  </section>
+
+  <section class="pxcard" id="calendar">
+    <h2>Lịch Google của bạn</h2>
+    <ol class="steps">
+      <li>Bấm <button class="link" id="gcalOpen">Mở cài đặt Google Calendar</button> (đăng nhập tài khoản Google của bạn).</li>
+      <li>Cột trái, dưới <b>Cài đặt cho lịch của tôi</b>, chọn lịch của bạn.</li>
+      <li>Kéo xuống <b>Tích hợp lịch</b> → copy <b>Địa chỉ bí mật ở định dạng iCal</b>.</li>
+      <li>Dán vào ô dưới rồi bấm <b>Thử kết nối</b>.</li>
+    </ol>
+    <p class="hint" style="margin:0 0 8px">Link chỉ lưu trên máy này, Cúp chỉ đọc giờ họp và tên cuộc họp. Đừng gửi link này cho người khác.</p>
+    <div class="row"><div class="grow"><input id="icsUrl" type="text" placeholder="https://calendar.google.com/calendar/ical/…/basic.ics"><div class="hint" id="icsHint">Cúp nhắc khéo trước giờ họp 30 phút, 10 phút và lúc sắp vào.</div></div></div>
+    <div class="row"><span></span><button class="link" id="icsTest">Thử kết nối</button></div>
+  </section>
+
+  <section class="pxcard">
+    <h2>Khác</h2>
+    <div class="row"><div class="lbl">Kích thước Cúp</div>
+      <div class="seg" id="scale"><button data-v="1.2">Mini</button><button data-v="2">Nhỏ</button><button data-v="3">To</button></div>
+    </div>
+    <div class="row"><label for="openAtLogin">Mở cùng Windows</label><span class="sw"><input id="openAtLogin" type="checkbox"><i></i></span></div>
+  </section>
+
+  <footer><span class="hint">Click Cúp để chọc · kéo thả để bế · chuột phải để mở menu</span><span class="saved" id="saved">ĐÃ LƯU</span></footer>
+
+<script>
+(async () => {
+  const api = window.cup;
+  const { cfg, musicFiles } = await api.getCfg();
+  const $ = (id) => document.getElementById(id);
+  const preset = ['anh', 'chị', 'sếp', 'bạn', 'đại ca'];
+  const flash = () => { $('saved').classList.add('on'); clearTimeout(flash.t); flash.t = setTimeout(() => $('saved').classList.remove('on'), 1200); };
+  const set = async (patch) => { await api.setCfg(patch); flash(); };
+
+  if (preset.includes(cfg.pronoun)) $('pronoun').value = cfg.pronoun;
+  else { $('pronoun').value = '__custom'; $('customRow').hidden = false; $('custom').value = cfg.pronoun; }
+  $('pronoun').onchange = (e) => {
+    const v = e.target.value; $('customRow').hidden = v !== '__custom';
+    if (v !== '__custom') set({ pronoun: v }); else $('custom').focus();
+  };
+  $('custom').oninput = (e) => { const v = e.target.value.trim(); if (v) set({ pronoun: v }); };
+
+  for (const k of ['water', 'food', 'vinahouse', 'openAtLogin', 'flash']) {
+    $(k).checked = !!cfg[k];
+    $(k).onchange = (e) => set({ [k]: e.target.checked });
+  }
+  const seg = (id, val, conv) => {
+    const btns = [...$(id).querySelectorAll('button')];
+    const paint = (v) => btns.forEach((b) => b.classList.toggle('on', b.dataset.v === String(v)));
+    paint(val);
+    btns.forEach((b) => b.onclick = () => { paint(b.dataset.v); set({ [id]: conv(b.dataset.v) }); });
+  };
+  seg('frequency', cfg.frequency, (v) => v);
+  seg('scale', cfg.scale, Number);
+  const src = () => { const v = $('musicSource').value; $('linkRow').hidden = v !== 'link'; $('folderRow').hidden = v !== 'folder';
+    $('musicHint').textContent = v === 'folder' ? (musicFiles.length ? `Có ${musicFiles.length} bài trong thư mục nhạc.` : 'Thư mục trống → Cúp mở set Thái Hoàng.') : v === 'default' ? 'Gu của Cúp. Có đèn, có múa cột.' : ''; };
+  $('musicSource').value = cfg.musicSource; src();
+  $('musicSource').onchange = (e) => { src(); set({ musicSource: e.target.value }); };
+  $('musicLink').value = cfg.musicLink || '';
+  $('musicLink').onchange = (e) => set({ musicLink: e.target.value.trim() });
+  $('icsUrl').value = cfg.icsUrl || '';
+  $('icsUrl').onchange = (e) => set({ icsUrl: e.target.value.trim() });
+  $('gcalOpen').onclick = () => api.openUrl('https://calendar.google.com/calendar/r/settings');
+  const goto = (id) => { const el = document.getElementById(id); if (!el) return; el.scrollIntoView({ block: 'start' }); el.classList.remove('flash-sec'); void el.offsetWidth; el.classList.add('flash-sec'); if (id === 'calendar') $('icsUrl').focus(); };
+  if (location.hash) setTimeout(() => goto(location.hash.slice(1)), 60);
+  api.on('goto', goto);
+  $('icsTest').onclick = async () => {
+    const u = $('icsUrl').value.trim(); await set({ icsUrl: u });
+    $('icsHint').textContent = 'Đang thử…';
+    const r = await api.testCalendar(u);
+    $('icsHint').textContent = r.ok ? (r.next ? `OK! Cuộc họp tới: "${r.next.title}" lúc ${new Date(r.next.start).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}.` : `OK! ${r.n} sự kiện, chưa có họp sắp tới.`) : 'Lỗi: ' + r.error;
+  };
+  $('volume').value = cfg.volume;
+  $('volume').onchange = (e) => set({ volume: Number(e.target.value) });
+  $('openMusic').onclick = () => api.openMusicDir();
+})();
+</script>
+</body>
+</html>

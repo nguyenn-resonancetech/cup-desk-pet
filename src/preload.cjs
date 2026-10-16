@@ -1,0 +1,32 @@
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('cup', {
+  init: () => ipcRenderer.invoke('init'),
+  ignoreMouse: (v) => ipcRenderer.send('ignore-mouse', v),
+  move: (x, y) => ipcRenderer.send('move', x, y),
+  workArea: (x, y) => ipcRenderer.invoke('work-area', x, y),
+  cursor: () => ipcRenderer.invoke('cursor'),
+  openUrl: (u) => ipcRenderer.send('open-url', u),
+  contextMenu: () => ipcRenderer.send('context-menu'),
+  getCfg: () => ipcRenderer.invoke('get-cfg'),
+  setCfg: (c) => ipcRenderer.invoke('set-cfg', c),
+  musicFiles: () => ipcRenderer.invoke('music-files'),
+  openMusicDir: () => ipcRenderer.send('open-music-dir'),
+  openSettings: (section) => ipcRenderer.send('open-settings', section),
+  // overlay / popups / music / feeds
+  overlayShow: (m) => ipcRenderer.send('overlay-show', m),
+  overlayHide: () => ipcRenderer.send('overlay-hide'),
+  overlayBeat: (b) => ipcRenderer.send('overlay-beat', b),
+  overlayDone: (r) => ipcRenderer.send('overlay-done', r),
+  popups: (kinds) => ipcRenderer.send('popups', kinds),
+  popupClose: () => ipcRenderer.send('popup-close'),
+  popupDodge: () => ipcRenderer.send('popup-dodge'),
+  musicStart: (url, vol) => ipcRenderer.send('music-start', url, vol),
+  musicStop: () => ipcRenderer.send('music-stop'),
+  musicShow: () => ipcRenderer.send('music-show'),
+  pageTitle: (u) => ipcRenderer.invoke('page-title', u),
+  calendar: () => ipcRenderer.invoke('calendar'),
+  testCalendar: (u) => ipcRenderer.invoke('test-calendar', u),
+  drama: () => ipcRenderer.invoke('drama'),
+  on: (ch, fn) => ipcRenderer.on(ch, (_e, ...a) => fn(...a)),
+});

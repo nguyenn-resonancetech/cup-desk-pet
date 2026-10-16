@@ -1,0 +1,24 @@
+<!doctype html><meta charset="utf-8"><title>sprite test</title>
+<style>body{background:#fdf5dd;margin:0;padding:16px;display:flex;flex-wrap:wrap;gap:12px;font:12px sans-serif}canvas{image-rendering:pixelated;width:200px;height:200px;background:#fff}</style>
+<script type="module">
+import { loadSprite } from '../src/sprite.js';
+const s = await loadSprite('../assets/pet/');
+const L=(i,x,y)=>s.look(i,x,y);
+const poses = {
+  smug:{eyes:[{mode:'smug',...L(0,0.6,0.3)},{mode:'smug',...L(1,0.6,0.3)}]},
+  smugTongue:{eyes:[{mode:'smug',...L(0,-0.8,0.4)},{mode:'smug',...L(1,-0.8,0.4)}],tongue:2,blush:1},
+  sideEye:{eyes:[{mode:'side',...L(0,1,0.3)},{mode:'side',...L(1,1,0.3)}]},
+  deadpan:{eyes:[{mode:'flat'},{mode:'flat'}]},
+  crazy:{eyes:[{dx:3,dy:3},{...L(1,-1,-1)}],tongue:4,tongueSide:2},
+  cry:{eyes:[{mode:'small'},{mode:'small'}],tear:1,beak:true},
+  sweat:{eyes:[{mode:'small',...L(0,-1,0)},{mode:'small',...L(1,-1,0)}],sweat:1},
+  drunk:{eyes:[{mode:'half',dx:2},{mode:'smug',lid:0.6,...L(1,-1,1)}],blush:1,tongue:1},
+  skinny:{skinny:1,eyes:[{mode:'small'},{mode:'small'}],tear:2},
+  skinnyHalf:{skinny:0.5},
+};
+for (const [k,p] of Object.entries(poses)) {
+  const cv=document.createElement('canvas'); cv.width=100; cv.height=100;
+  cv.getContext('2d').drawImage(s.render(p),0,0);
+  const d=document.createElement('div'); d.append(cv, document.createElement('br'), k); document.body.append(d);
+}
+</script>

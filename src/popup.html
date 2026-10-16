@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'">
+<title>Cúp</title>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  [hidden] { display: none !important; }
+  html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; user-select: none; font-family: var(--font-noto-sans); color: var(--color-deep-ink); }
+  .card {
+    --step12: polygon(0 12px,6px 12px,6px 6px,12px 6px,12px 0,calc(100% - 12px) 0,calc(100% - 12px) 6px,calc(100% - 6px) 6px,calc(100% - 6px) 12px,100% 12px,100% calc(100% - 12px),calc(100% - 6px) calc(100% - 12px),calc(100% - 6px) calc(100% - 6px),calc(100% - 12px) calc(100% - 6px),calc(100% - 12px) 100%,12px 100%,12px calc(100% - 6px),6px calc(100% - 6px),6px calc(100% - 12px),0 calc(100% - 12px));
+    position: absolute; left: 4px; top: 4px; right: 12px; bottom: 12px; box-sizing: border-box; padding: 16px;
+    filter: drop-shadow(5px 5px 0 rgba(22, 28, 36, .32));
+    display: flex; flex-direction: column; gap: 12px;
+    animation: pop 300ms var(--ease-expo) both;
+  }
+  .card::before { content: ""; position: absolute; inset: 0; z-index: 0; clip-path: var(--step12);
+    background: linear-gradient(#fff, #fff) 2px 2px / calc(100% - 4px) calc(100% - 4px) no-repeat, var(--color-deep-ink); }
+  .card > * { position: relative; z-index: 1; }
+  @keyframes pop { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .card.shake { animation: shake 320ms steps(6) both; }
+  @keyframes shake { 0%,100% { transform: none } 20% { transform: translateX(-8px) } 40% { transform: translateX(8px) } 60% { transform: translateX(-6px) } 80% { transform: translateX(6px) } }
+  .bar { display: flex; align-items: center; gap: 8px; -webkit-app-region: drag; margin: -4px 0 0; }
+  .bar img { width: 24px; height: 24px; image-rendering: pixelated; }
+  .eyebrow { font-family: var(--font-pixel-vi); font-size: 16px; line-height: 16px; letter-spacing: .04em; color: var(--color-mist-body); }
+  h1 { margin: 0; font-family: var(--font-onest); font-weight: 800; font-size: 20px; line-height: 28px; }
+  p { margin: 0; font-family: var(--font-pixel-vi); font-size: 22px; line-height: 24px; }
+  .hint { font-size: 12px; line-height: 16px; color: var(--color-mist-body); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .grow { flex: 1; }
+  .btn {
+    --side: 4px; --btn-top: var(--color-coral-flame); --btn-side: var(--color-ember-deep);
+    background: linear-gradient(var(--btn-top), var(--btn-top)) no-repeat 0 0 / 100% calc(100% - var(--side)), var(--btn-side);
+    color: #fff; font: 700 14px/20px var(--font-onest); padding: 8px 16px 12px; border: 0; cursor: pointer;
+    clip-path: polygon(0 8px,4px 8px,4px 4px,8px 4px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 4px,calc(100% - 4px) 4px,calc(100% - 4px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 4px) calc(100% - 8px),calc(100% - 4px) calc(100% - 4px),calc(100% - 8px) calc(100% - 4px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 4px),4px calc(100% - 4px),4px calc(100% - 8px),0 calc(100% - 8px));
+    transition: transform 70ms steps(2);
+  }
+  .btn:hover { --side: 6px; transform: translateY(-2px); }
+  .btn:active { --side: 2px; transform: translateY(2px); }
+  .opt { font: 700 14px/20px var(--font-onest); padding: 8px 12px; border: 1px solid var(--color-chalk-surface); background: var(--color-ghost-white); cursor: pointer; color: var(--color-deep-ink);
+    clip-path: polygon(0 6px,3px 6px,3px 3px,6px 3px,6px 0,calc(100% - 6px) 0,calc(100% - 6px) 3px,calc(100% - 3px) 3px,calc(100% - 3px) 6px,100% 6px,100% calc(100% - 6px),calc(100% - 3px) calc(100% - 6px),calc(100% - 3px) calc(100% - 3px),calc(100% - 6px) calc(100% - 3px),calc(100% - 6px) 100%,6px 100%,6px calc(100% - 3px),3px calc(100% - 3px),3px calc(100% - 6px),0 calc(100% - 6px)); }
+  .opt:hover { border-color: var(--color-coral-flame); }
+  .opt.on { background: var(--color-coral-mist); border-color: var(--color-coral-flame); }
+  input[type=text] { font: 16px/24px var(--font-noto-sans); padding: 8px 12px; border: 1px solid var(--color-cloud-border); border-radius: var(--radius-inputs); width: 100%; box-sizing: border-box; }
+  input[type=text]:focus { outline: none; border: 2px solid var(--color-coral-flame); padding: 7px 11px; }
+  .face { width: 72px; height: 72px; image-rendering: pixelated; cursor: pointer; transition: transform 70ms steps(2); }
+  .face:active { transform: translateY(4px) scale(.94); }
+  .big { font-family: var(--font-pixel-vi); font-size: 32px; line-height: 40px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 40px); gap: 4px; }
+  .grid button { width: 40px; height: 40px; padding: 0; border: 2px solid transparent; background: var(--color-ghost-white); cursor: pointer; }
+  .grid button img { width: 32px; height: 32px; image-rendering: pixelated; }
+  .grid button.on { border-color: var(--color-coral-flame); background: var(--color-coral-mist); }
+  .stars { display: flex; gap: 4px; }
+  .stars button { font-size: 28px; line-height: 32px; background: none; border: 0; cursor: pointer; color: var(--color-chalk-surface); padding: 0 2px; }
+  .stars button.on { color: var(--color-amber-signal); }
+  .meter { display: flex; gap: 2px; }
+  .meter i { width: 14px; height: 14px; background: var(--color-chalk-surface); }
+  .meter i.full { background: var(--color-coral-flame); }
+  label.chk { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 24px; cursor: pointer; }
+  label.chk input { width: 20px; height: 20px; accent-color: var(--color-coral-flame); margin: 2px 0 0; }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="bar"><img src="../assets/app-icon.png" alt=""><span class="eyebrow">TIN NHẮN TỪ CÚP</span></div>
+    <div id="body" class="grow"></div>
+  </div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
