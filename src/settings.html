@@ -125,6 +125,7 @@
 <script>
 (async () => {
   const api = window.cup;
+  for (const ev of ['pointerdown', 'keydown', 'wheel']) addEventListener(ev, () => api.touched(), { once: true, capture: true });
   const { cfg, musicFiles } = await api.getCfg();
   const $ = (id) => document.getElementById(id);
   const preset = ['anh', 'chị', 'sếp', 'bạn', 'đại ca'];

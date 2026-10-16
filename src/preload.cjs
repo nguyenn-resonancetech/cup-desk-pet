@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld('cup', {
   musicFiles: () => ipcRenderer.invoke('music-files'),
   openMusicDir: () => ipcRenderer.send('open-music-dir'),
   openSettings: (section) => ipcRenderer.send('open-settings', section),
+  touched: () => ipcRenderer.send('window-touched'),
   // overlay / popups / music / feeds
   overlayShow: (m) => ipcRenderer.send('overlay-show', m),
   overlayHide: () => ipcRenderer.send('overlay-hide'),

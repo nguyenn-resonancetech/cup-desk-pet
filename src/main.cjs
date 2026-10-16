@@ -175,15 +175,28 @@ ipcMain.handle('calendar', async () => {
 ipcMain.handle('drama', async () => { try { return await drama.hottest(); } catch { return []; } });
 
 // ---------------------------------------------------------------- settings + tray
+// Cúp never takes focus, so Windows refuses to raise a new window from it ("focus stealing
+// prevention") and Settings opened behind other apps. Pin it on top for a beat, then release.
+function bringToFront(w) {
+  if (w.isMinimized()) w.restore();
+  // stay on top until the user actually clicks/types inside it (isFocused() lies here on Windows),
+  // then behave like a normal window — see 'window-touched'
+  w.setAlwaysOnTop(true, 'floating');
+  w.show(); w.moveTop(); w.focus();
+  if (process.platform === 'darwin') app.focus({ steal: true });
+  w.flashFrame(false);
+}
 function openSettings(section) {
-  if (settingsWin && !settingsWin.isDestroyed()) { settingsWin.focus(); if (section) settingsWin.webContents.send('goto', section); return; }
+  if (settingsWin && !settingsWin.isDestroyed()) { bringToFront(settingsWin); if (section) settingsWin.webContents.send('goto', section); return; }
+  const wa = petDisplay().workArea, w = 480, h = Math.min(780, wa.height - 40);
   settingsWin = new BrowserWindow({
-    width: 480, height: 780, resizable: false, title: 'Cúp — Cài đặt',
+    width: w, height: h, x: Math.round(wa.x + (wa.width - w) / 2), y: Math.round(wa.y + (wa.height - h) / 2),
+    resizable: false, title: 'Cúp — Cài đặt', show: false,
     icon: ICON, autoHideMenuBar: true, backgroundColor: '#fdf5dd',
     webPreferences: { preload: path.join(__dirname, 'preload.cjs') },
   });
   settingsWin.loadFile(path.join(__dirname, 'settings.html'), section ? { hash: section } : undefined);
-  if (process.platform === 'darwin') app.focus({ steal: true });
+  settingsWin.once('ready-to-show', () => bringToFront(settingsWin));
 }
 
 function menuTemplate() {
@@ -255,6 +268,7 @@ ipcMain.handle('test-calendar', async (_e, url) => {
 });
 ipcMain.on('open-music-dir', () => shell.openPath(MUSIC));
 ipcMain.on('open-settings', (_e, section) => openSettings(section));
+ipcMain.on('window-touched', (e) => { const w = BrowserWindow.fromWebContents(e.sender); if (w && w !== win && w.isAlwaysOnTop()) w.setAlwaysOnTop(false); });
 
 function listMusic() {
   try { return fs.readdirSync(MUSIC).filter((f) => /\.(mp3|m4a|ogg|wav|flac)$/i.test(f)).map((f) => path.join(MUSIC, f)); } catch { return []; }
@@ -283,6 +297,7 @@ function startDebug() {
         fs.writeFileSync(path.join(DATA, `snap-${++n}.png`), (await win.webContents.capturePage()).toPNG());
         console.log('snap', n, JSON.stringify(win.getBounds()));
       } else if (c === 'settings') openSettings();
+      else if (c.startsWith('menu:')) { const it = Menu.buildFromTemplate(menuTemplate()).items.find((m) => m.label === c.slice(5)); console.log('menu item', !!it); try { it && it.click(); } catch (e) { console.log('menu error', e.stack); } }
       else if (c === 'snapset' && settingsWin && !settingsWin.isDestroyed()) {
         fs.writeFileSync(path.join(DATA, 'snap-settings.png'), (await settingsWin.webContents.capturePage()).toPNG()); console.log('snapset');
       } else if (c === 'snapover' && overlay && !overlay.isDestroyed()) {
@@ -292,6 +307,8 @@ function startDebug() {
         console.log('snappop', i);
       } else if (c === 'mute' && player) { player.webContents.setAudioMuted(true); console.log('muted'); }
       else if (c.startsWith('eval:')) console.log('eval', await win.webContents.executeJavaScript(c.slice(5)).catch((e) => String(e)));
+      else if (c === 'setstate' && settingsWin && !settingsWin.isDestroyed()) console.log('setstate', JSON.stringify({ vis: settingsWin.isVisible(), foc: settingsWin.isFocused(), top: settingsWin.isAlwaysOnTop(), min: settingsWin.isMinimized(), b: settingsWin.getBounds() }));
+      else if (c.startsWith('evalset:') && settingsWin) console.log('evalset', await settingsWin.webContents.executeJavaScript(c.slice(8)).catch((e) => String(e)));
       else if (c.startsWith('evalover:') && overlay) console.log('evalover', await overlay.webContents.executeJavaScript(c.slice(9)).catch((e) => String(e)));
       else if (c.startsWith('evalplayer:') && player) console.log('evalplayer', await player.webContents.executeJavaScript(c.slice(11)).catch((e) => String(e)));
       else toPet('cmd', c);
