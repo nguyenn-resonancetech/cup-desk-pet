@@ -1,7 +1,7 @@
 {
   "name": "cup-desk-pet",
   "productName": "Cup Desk Pet",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Cúp — con gà phi công trên desktop, chuyên xúi trốn việc, mở nhạc Thái Hoàng, rủ đi ăn và hóng drama.",
   "main": "src/main.cjs",
   "private": true,

@@ -695,6 +695,7 @@ function onCmd(c) {
     // debug-only shortcuts
     skinny: () => { st.lastPlay = Date.now() - 200 * MIN; }, drunk: () => { st.drunkUntil = Date.now() + 60e3; },
     back: () => comeBack(),
+    edgeL: () => moveWin(clampX(-1e6), groundY()), edgeR: () => moveWin(clampX(1e6), groundY()),
     skit: () => runSkit(P(L.SKITS)), chat: () => chatLine(),
   };
   if (c.startsWith('skit:')) { const sk = L.SKITS.find((x) => x.id === c.slice(5)); if (sk) runSkit(sk); return; }
@@ -735,6 +736,7 @@ function onIdle(sec) {
 // ---------------------------------------------------------------- scheduler (every 0.5 s)
 function think() {
   const now = Date.now();
+  if (st.f % 20 === 0 && !st.hidden) api.workArea(winX + W / 2, winY + H - 4).then((w) => { if (w) wa = w; });
   if (st.mode === 'sleep' && now >= st.quietUntil && st.quietUntil && !st.away) { st.quietUntil = 0; wake(); }
   if (now >= next.calendar) { next.calendar = now + 10 * MIN; refreshCalendar(); }
   if (now >= next.drama) { next.drama = now + 20 * MIN; api.drama().then((d) => { if (d && d.length) st.drama = d; }); }

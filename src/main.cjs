@@ -49,7 +49,7 @@ let win, tray, settingsWin, overlay, player;
 let quietUntil = 0;
 const popups = new Set();
 
-const PET_W = 380;               // window = bubble room above the pet
+const PET_W = 760;               // transparent, click-through; wide enough that the bubble still fits on screen when Cúp hugs an edge
 const winH = () => Math.round(100 * cfg.scale) + 240;
 const ICON = path.join(ROOT, 'assets', 'app-icon.png');
 const CLEAN_UA = () => app.userAgentFallback.replace(/\s(Electron|cup-desk-pet)\/\S+/g, '');
