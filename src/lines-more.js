@@ -34,13 +34,13 @@ export const FED = ['A! {A} nhớ em rồi! Em mập lại liền nè.', 'Cảm 
 
 // Thơ. Thơ có tác giả chỉ đọc câu mở đầu rồi Cúp "sáng tác tiếp".
 export const POEMS = [
-  { pages: [
+  { story: true, pages: [
     'Bài thơ đầu anh viết tặng em, là bài thơ anh kể về đôi dép…',
     '…rồi em quên mất đoạn sau. Đại khái là đôi dép đi đâu cũng có nhau.',
     'Còn em với {a}: {a} ngồi đây, em đứng đó. Hai mình không bằng đôi dép.',
     'Hết bài. Cảm động không {a}? Cảm động thì chơi với em đi.',
   ] },
-  { pages: [
+  { story: true, pages: [
     'Chiều mộng hoà thơ trên nhánh duyên…',
     '…tới đây em quên rồi. Xuân Diệu viết hay quá, em nhớ không nổi.',
     'Em chế tiếp nha: chiều mộng hoà thơ, sáng mộng hoà cà phê. {A} mộng gì cũng được, miễn đừng mộng deadline.',

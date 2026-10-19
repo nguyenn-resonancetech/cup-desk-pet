@@ -50,7 +50,7 @@ let quietUntil = 0;
 const popups = new Set();
 
 const PET_W = 760;               // transparent, click-through; wide enough that the bubble still fits on screen when Cúp hugs an edge
-const winH = () => Math.round(100 * cfg.scale) + 240;
+const winH = () => Math.round(100 * cfg.scale) + 320;   // room for a full-stanza bubble above Cúp
 const ICON = path.join(ROOT, 'assets', 'app-icon.png');
 const CLEAN_UA = () => app.userAgentFallback.replace(/\s(Electron|cup-desk-pet)\/\S+/g, '');
 

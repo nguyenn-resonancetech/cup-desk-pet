@@ -83,6 +83,6 @@ body { font-family: var(--font-noto-sans); color: var(--color-deep-ink); }
 /* under the bird while it hangs from the cursor — no tail */
 .bubble.below .b-tail { display: none; }
 /* Cúp ngâm thơ */
-.b-text.poem { font-size: 24px; line-height: 28px; color: var(--color-ember-darker); }
+.b-text.poem { font-size: 24px; line-height: 28px; color: var(--color-ember-darker); white-space: pre-line; }
 /* labels with Vietnamese marks Tiny5 can't draw fall back to Onest small caps */
 

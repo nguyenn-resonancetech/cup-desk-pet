@@ -161,7 +161,7 @@ function say(text, o = {}) {
   el.className = 'b-text' + (o.big ? ' big' : '') + (o.poem ? ' poem' : '');
   el.textContent = '';
   if (o.icon && icons[o.icon]) { ico.src = icons[o.icon].src; ico.hidden = false; bubble.style.width = '348px'; }
-  else { ico.hidden = true; bubble.style.width = ''; }
+  else { ico.hidden = true; bubble.style.width = o.poem ? '420px' : ''; }
   setMeter(o.meter, o.meterLabel);
   acts.innerHTML = '';
   (o.actions || []).forEach((a, i) => {
@@ -314,7 +314,9 @@ function hello() {
 function poem() {
   const p = P(L.POEMS);
   expr('dreamy', 30e3);
-  sayPages(p.pages, { name: 'CÚP NGÂM THƠ', poem: true, slow: true, done: () => { st.expr = null; },
+  // short verse lines → the whole stanza in one bubble; story-style poems keep one paragraph per page
+  const verse = !p.story;
+  sayPages(verse ? [p.pages.join('\n')] : p.pages, { name: 'CÚP NGÂM THƠ', poem: true, slow: !verse, done: () => { st.expr = null; },
     actions: [{ label: 'Hay quá!', fn: () => { jump(); expr('blush', 3000); say(fillT('Biết ngay {a} có tâm hồn mà. Giờ chơi với em đi!')); } }, { label: 'Thôi đủ rồi', fn: () => sulk() }] });
 }
 function lonely() {
