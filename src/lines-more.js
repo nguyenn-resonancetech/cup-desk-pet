@@ -46,9 +46,8 @@ export const POEMS = [
     'Em chế tiếp nha: chiều mộng hoà thơ, sáng mộng hoà cà phê. {A} mộng gì cũng được, miễn đừng mộng deadline.',
   ] },
   { pages: [
-    'Cảm ơn đời mỗi sớm mai thức dậy, ta có thêm 5 ngàn để ăn xôi.',
-    'Cảm ơn đời mỗi trưa hè oi ả, ta có thêm cái quạt để ngồi chơi.',
-    'Cảm ơn đời mỗi chiều về mệt mỏi, ta có thêm con gà để than phiền.',
+    'Cảm ơn đời mỗi sớm mai thức dậy,',
+    'Ta có thêm 5 ngàn để ăn xôi.',
   ] },
   { pages: [
     'Sáng ra mở máy thấy mail,',
